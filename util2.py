@@ -4,9 +4,10 @@ import cPickle as pickle
 import zipfile
 import shutil
 
-import scipy.stats as stat
-from scipy.stats import beta, binom
-from scipy.special import gammaln
+try:
+    from scipy.special import gammaln
+except ImportError:
+    from scipy_replacement import gammaln
 from math import exp, log
 from datetime import datetime
 

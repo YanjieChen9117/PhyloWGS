@@ -11,7 +11,15 @@ import sys
 import numpy as np
 import numpy.ma as ma
 import json
-from scipy.stats.mstats import gmean
+try:
+    from scipy.stats.mstats import gmean
+except ImportError:
+    import sys
+    import os
+    _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if _root not in sys.path:
+        sys.path.insert(0, _root)
+    from scipy_replacement import gmean
 
 VariantId = namedtuple('VariantId', ['CHROM', 'POS'])
 

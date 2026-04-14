@@ -1,0 +1,4 @@
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+1	19042	.	C	A	.	.	Callers=muse,sanger;NumCallers=2;VAF=0.3;t_alt_count=3;t_ref_count=7;Variant_Classification=RNA
+1	78601	.	G	A	.	.	Callers=broad,muse,sanger;NumCallers=3;VAF=0.4;t_alt_count=8;t_ref_count=12;Variant_Classification=RNA
+1	144000000	.	A	T	.	.	Callers=broad,dkfz,muse,sanger;NumCallers=4;VAF=0.4348;cosmic=COSN15682789;t_alt_count=10;t_ref_count=13;Variant_Classification=RNA

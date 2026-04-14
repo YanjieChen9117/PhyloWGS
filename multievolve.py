@@ -9,7 +9,10 @@ from util2 import logmsg
 import Queue
 import threading
 import time
-import scipy.misc
+try:
+    from scipy.misc import logsumexp
+except ImportError:
+    from scipy_replacement import logsumexp
 import hashlib
 from collections import defaultdict
 
@@ -226,7 +229,7 @@ def determine_chains_to_merge(chain_dirs,chain_inclusion_factor):
             if tree_name.startswith("tree"):
                 #the logged likelihood is in the names of the trees, just use that.
                 logLHs.append(float(tree_name.split('_')[-1]))
-        logSumLHs.append(scipy.misc.logsumexp(logLHs))
+        logSumLHs.append(logsumexp(logLHs))
 
     # Check below assumes that LLH < 0, which it should always be. We need this
     # assumption for the idea that a "slightly worse" chain has a "slightly

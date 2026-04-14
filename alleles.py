@@ -1,6 +1,3 @@
-from scipy.stats import beta, binom
-import scipy.stats as stat
-from scipy.misc import comb
 from util         import *
 from numpy        import *
 from node         import *

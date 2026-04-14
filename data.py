@@ -1,6 +1,8 @@
 from numpy import *
-import scipy.stats as stat
-from scipy.special import gammaln
+try:
+    from scipy.special import gammaln
+except ImportError:
+    from scipy_replacement import gammaln
 import util2 as u
 
 class Datum(object):

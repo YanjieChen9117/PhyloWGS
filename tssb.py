@@ -1,5 +1,4 @@
 import sys
-import scipy.stats
 from time import *
 from numpy import *
 from numpy.random import *

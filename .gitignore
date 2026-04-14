@@ -2,3 +2,14 @@
 *.pyc
 venv
 env
+
+Shlush_multi-sample-test/copy_number_file/
+Shlush_multi-sample-test/mutation_table/
+Shlush_multi-sample-test/Patient-6_multisample_chains/
+
+PhyloWGS_runtime_analysis/mutation_table/
+PhyloWGS_runtime_analysis/copy_number_file/
+PhyloWGS_runtime_analysis/results_phylowgs/
+
+DREAM_T12_test/raw/
+DREAM_T12_test/with_CN_limit/

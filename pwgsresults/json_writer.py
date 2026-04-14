@@ -3,9 +3,24 @@ import json
 import gzip
 import zipfile
 import numpy as np
-import scipy.stats
+try:
+    import scipy.stats
+    _has_scipy = True
+except ImportError:
+    _has_scipy = False
+    import sys
+    import os
+    _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    if _root not in sys.path:
+        sys.path.insert(0, _root)
 
 np.seterr(invalid='raise')
+
+def _gaussian_kde(dataset):
+    if _has_scipy:
+        return scipy.stats.gaussian_kde(dataset)
+    from scipy_replacement import gaussian_kde
+    return gaussian_kde(dataset)
 
 def calc_tree_densities(summaries):
   tidxs = sorted(summaries.keys())
@@ -22,17 +37,11 @@ def calc_tree_densities(summaries):
   # Must conver to Python list so it can be serialized to JSON.
 
   try:
-    density = list(scipy.stats.gaussian_kde(XY)(XY))
-  except (np.linalg.linalg.LinAlgError, FloatingPointError):
-    # Occurs when sample covariance matrix is singular because, e.g., data lies
-    # on manifold. We see this happen when all trees are linear, implying BI=0.
-    # To overcome this error, calculate density in 1D without using the BI.
+    density = list(_gaussian_kde(XY)(XY))
+  except (np.linalg.LinAlgError, FloatingPointError, AttributeError):
     try:
-      density = list(scipy.stats.gaussian_kde(X)(X))
-    except (np.linalg.linalg.LinAlgError, FloatingPointError):
-      # ... but an exception may still occur if all trees have the same
-      # structure, I think. This was triggered when working with Steph's trees,
-      # using PhyloSteph.
+      density = list(_gaussian_kde(X)(X))
+    except (np.linalg.LinAlgError, FloatingPointError, AttributeError):
       density = np.zeros(len(X))
 
   return dict(zip(tidxs, density))

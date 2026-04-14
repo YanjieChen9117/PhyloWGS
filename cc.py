@@ -4,7 +4,6 @@
 
 from numpy import *
 from numpy.random import *
-from scipy import linalg
 
 from cvxopt import matrix, solvers
 

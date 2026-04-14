@@ -2,8 +2,10 @@ import os
 import sys
 import cPickle
 import numpy
-import scipy.special
-import scipy.stats
+try:
+    from scipy.special import gammaln
+except ImportError:
+    from scipy_replacement import gammaln
 
 def bucket(edges, value):
     return numpy.sum(value > edges)
@@ -13,9 +15,6 @@ def sticks_to_edges(sticks):
 
 def normpdfln(x, m, prec):
     return numpy.sum(-0.5*numpy.log(2*numpy.pi) + 0.5*numpy.log(prec) - 0.5*prec*(x-m)**2, axis=1)
-
-def gammaln(x):
-    return scipy.special.gammaln(x)
 
 def gammapdfln(x, a, b):
     return -gammaln(a) + a*numpy.log(b) + (a-1.0)*numpy.log(x) - b*x
